@@ -1,0 +1,37 @@
+name: Linting and testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Testing and Linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install project dependencies
+        run: npm run install:all
+
+      - name: Run linting for backend
+        run: npm run lint:backend
+
+      - name: Run testing for backend
+        run: npm run test:backend
+
+      - name: Run linting for frontend
+        run: npm run lint:frontend
+
+      - name: Run testing for frontend
+        run: npm run test:frontend
