@@ -30,8 +30,16 @@ jobs:
       - name: Run testing for backend
         run: npm run test:backend
 
+      - name: Run audit for backend
+        working-directory: ./backend
+        run: npm audit --audit-level=moderate
+
       - name: Run linting for frontend
         run: npm run lint:frontend
 
       - name: Run testing for frontend
         run: npm run test:frontend
+
+      - name: Run audit for frontend
+        working-directory: ./frontend
+        run: npm audit --audit-level=moderate
