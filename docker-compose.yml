@@ -11,6 +11,20 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+
+  backend:
+    container_name: task-backend
+    image: task-backend
+    restart: always
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
 
 volumes:
   db_data:
