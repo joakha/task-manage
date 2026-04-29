@@ -9,7 +9,7 @@ COPY backend/package.json backend/
 
 RUN npm ci
 
-COPY . .
+COPY backend ./backend
 
 RUN npm run build:backend
 
@@ -18,12 +18,15 @@ FROM node:24.14.0-alpine AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/backend/dist ./dist
+COPY --from=builder /app/backend/dist ./backend/dist
 
-COPY backend/package.json ./
+COPY package.json package-lock.json ./
 
-RUN npm install
+COPY frontend/package.json frontend/
+COPY backend/package.json backend/
+
+RUN npm run install:all
 
 EXPOSE 5000
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "backend/dist/server.js"]

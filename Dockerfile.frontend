@@ -12,7 +12,7 @@ COPY backend/package.json backend/
 
 RUN npm ci
 
-COPY . .
+COPY frontend ./frontend
 
 RUN npm run build:frontend
 
