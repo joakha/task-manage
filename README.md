@@ -1,3 +1,7 @@
+# App Deployment
+Frontend: https://task-manage-frontend-vbxi.onrender.com
+Backend: https://task-manage-7uu1.onrender.com
+
 # Task Management System - DevOps Project
 
 A full-stack task management application built for learning DevOps practices including CI/CD pipelines, containerization, and cloud deployment.
