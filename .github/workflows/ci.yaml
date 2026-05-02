@@ -25,6 +25,9 @@ jobs:
       - name: Install project dependencies
         run: npm run install:all
 
+      - name: Build backend
+        run: npm run build:backend
+
       - name: Run linting for backend
         run: npm run lint:backend
 
@@ -37,6 +40,9 @@ jobs:
 
       - name: Build backend docker image
         run: docker build -f Dockerfile.backend -t task-backend .
+
+      - name: Build frontend
+        run: npm run build:frontend
 
       - name: Run linting for frontend
         run: npm run lint:frontend
