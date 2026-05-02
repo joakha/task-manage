@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+    tags: ['*']
   pull_request:
     branches:
       - main
@@ -49,3 +50,17 @@ jobs:
 
       - name: Build frontend docker image
         run: docker build -f Dockerfile.frontend --build-arg VITE_API_URL=${{ secrets.VITE_API_URL }} -t task-frontend .
+      
+      if: startsWith(github.ref, 'refs/tags/')
+      - name: Deploy backend to Render
+        env:
+          backend_deploy_url: ${{ secrets.BACKEND_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$backend_deploy_url"
+
+      if: startsWith(github.ref, 'refs/tags/')
+      - name: Deploy frontend to Render
+        env:
+          frontend_deploy_url: ${{ secrets.FRONTEND_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$frontend_deploy_url"
